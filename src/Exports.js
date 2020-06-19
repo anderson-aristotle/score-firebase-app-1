@@ -1,4 +1,4 @@
-import Navigation from "./Navigation";
+import Navigation from "./components/Navigation";
 import LandingPage from "./components/Landing";
 import SignUpPage from "./components/SignUp";
 import SignInPage from "./components/SignIn";
