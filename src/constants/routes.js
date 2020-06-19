@@ -6,10 +6,34 @@ export const ACCOUNT = "/account";
 export const ADMIN = "/admin";
 export const PASSWORD_FORGET = "/pw-forget";
 
-export const NAV_ROUTES = [
-  { route: SIGN_IN, text: 'Sign In' },
-  { route: LANDING, text: 'Landing' },
-  { route: HOME, text: 'Home' },
-  { route: ACCOUNT, text: 'Account' },
-  { route: ADMIN, text: 'Admin' },
-]
+
+export const AUTH_ROUTES = [
+  {
+    route: HOME,
+    text: 'Home'
+  },
+  {
+    route: ACCOUNT,
+    text: 'Account'
+  },
+  {
+    route: ADMIN,
+    text: 'Admin'
+  }
+];
+
+export const OPEN_ROUTES = [
+  {
+    route: SIGN_IN,
+    text: 'Sign In'
+  },
+  {
+    route: SIGN_UP,
+    text: 'Landing'
+  },
+  {
+    route: LANDING,
+    text: 'Landing'
+  }
+];
+
