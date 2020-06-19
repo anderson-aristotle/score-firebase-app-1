@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import Container from '@material-ui/core/Container';
+
 import * as ROUTES from "./constants/Routes";
 
 const Navigation = () => (
-  <div>
+  <Container>
     <ul>
       <li>
         <Link to={ROUTES.SIGN_IN}>Sign In</Link>
@@ -22,6 +24,6 @@ const Navigation = () => (
         <Link to={ROUTES.ADMIN}>Admin</Link>
       </li>
     </ul>
-  </div>
+  </Container>
 );
 export default Navigation;
