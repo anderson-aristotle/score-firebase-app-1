@@ -61,7 +61,7 @@ class SignInFormBase extends Component {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" value={password} onChange={this.onChange} />
         </Form.Group>
-        <Button variant="light" disable={isInvalid} type="submit">
+        <Button variant="light" disabled={isInvalid} type="submit">
           Log In
         </Button>
         {error && <Alert variant="danger">{error.message}</Alert>}

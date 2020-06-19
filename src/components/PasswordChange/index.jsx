@@ -58,7 +58,7 @@ class PasswordChangeFormBase extends Component {
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control type="password" value={passwordTwo} onChange={this.onChange} />
         </Form.Group>
-        <Button variant="light" disable={isInvalid} type="submit">
+        <Button variant="light" disabled={isInvalid} type="submit">
           Update Password
         </Button>
         {error && <Alert variant="danger">{error.message}</Alert>}

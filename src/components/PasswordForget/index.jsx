@@ -53,7 +53,7 @@ class PasswordForgetFormBase extends Component {
           <Form.Control type="email" placeholder="Enter email" 
             value={email} onChange={this.onChange} />
         </Form.Group>
-        <Button variant="light" disable={isInvalid} type="submit">
+        <Button variant="light" disabled={isInvalid} type="submit">
           Reset My Password
         </Button>
         {error && <Alert variant="danger">{error.message}</Alert>}
