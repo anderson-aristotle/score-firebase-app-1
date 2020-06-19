@@ -22,9 +22,9 @@ class Firebase {
   doCreateUserWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
 
-  // doSignOut = () => this.auth.signout;
-  // doPasswordReset = (email) => this.auth.sendPasswordResetEmail(email);
-  // doPasswordUpdate = (password) => this.auth.updatePassword(password);
+  doSignOut = () => this.auth.signout;
+  doPasswordReset = (email) => this.auth.sendPasswordResetEmail(email);
+  doPasswordUpdate = (password) => this.auth.updatePassword(password);
 }
 
 export default Firebase;
