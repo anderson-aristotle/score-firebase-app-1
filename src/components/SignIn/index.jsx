@@ -3,16 +3,14 @@ import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 
 import { SignUpLink } from "../SignUp";
-import { withFirebase } from "../../config/Firebase";
+import { withFirebase } from '../Firebase/firebase';
 import * as ROUTES from "../../constants/routes";
 
-const SignInPage = () => (
-  <div>
-    <h1>SignIn</h1>
-    <SignInForm />
-    <SignUpLink />
-  </div>
-);
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Alert from 'react-bootstrap/Alert';
+
 
 const INITIAL_STATE = {
   email: "",
@@ -53,33 +51,36 @@ class SignInFormBase extends Component {
     const isInvalid = password === "" || email === "";
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign In
-        </button>
-
-        {error && <p>{error.message}</p>}
-      </form>
+      <Form onSubmit={this.onSubmit}>
+        <Form.Group controlId="emailAddress">
+          <Form.Label>Email Address</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" 
+            value={email} onChange={this.onChange} />
+        </Form.Group>
+        <Form.Group controlId="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" value={password} onChange={this.onChange} />
+        </Form.Group>
+        <Button variant="light" disable={isInvalid} type="submit">
+          Log In
+        </Button>
+        {error && <Alert variant="danger">{error.message}</Alert>}
+      </Form>
     );
   }
 }
 
 const SignInForm = compose(withRouter, withFirebase)(SignInFormBase);
 
-export default SignInPage;
+const SignInPage = () => (
+  <Container className="login-form">
+    <h1>Log In</h1>
+    <SignInForm />
+    <SignUpLink />
+  </Container>
+);
 
 export { SignInForm };
+export default SignInPage;
+
+
