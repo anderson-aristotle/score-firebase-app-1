@@ -69,7 +69,7 @@ class SignUpFormBase extends Component {
           <Form.Control type="password" value={passwordTwo} onChange={this.onChange} />
         </Form.Group>
         
-        <Button variant="light" disable={isInvalid} type="submit">
+        <Button variant="light" disabled={isInvalid} type="submit">
           Sign Up
         </Button>
         {error && <Alert variant="danger">{error.message}</Alert>}
