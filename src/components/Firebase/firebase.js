@@ -18,7 +18,7 @@ const config = {
 class Firebase {
   constructor() {
     app.initializeApp(config);
-    app.analytics();
+    // app.analytics();
   }
 
   // Auth API
@@ -28,11 +28,14 @@ class Firebase {
   doSignInWithEmailAndPassword = (email, password) => 
     this.auth.signInWithEmailAndPassword(email, password);
 
-  doSignOut = () => this.auth.signout;
-  doPasswordReset = (email) => this.auth.sendPasswordResetEmail(email);
-  doPasswordUpdate = (password) => this.auth.updatePassword(password);
+  doSignOut = () => this.auth.signOut();
 
-  // app API?
+  doPasswordReset = (email) => this.auth.sendPasswordResetEmail(email);
+
+  doPasswordUpdate = (password) => this.auth.currentUser.updatePassword(password);
+
+  
+
 }
 
 export default Firebase;
