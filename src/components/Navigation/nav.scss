@@ -8,6 +8,10 @@
     font-weight: 400;
     text-align: center;
 
+    &.auth-menu {
+      background-color: #004;
+    }
+
     .nav-item {
       margin: 0 1em;
       border-radius: 0.2em;
