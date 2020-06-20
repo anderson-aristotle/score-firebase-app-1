@@ -1,0 +1,45 @@
+.dialog-page {
+  background-color: #ddd;
+  border: thin solid #aaa;
+  border-radius: 0.5em;
+  margin: 20vh auto 0 auto;
+
+  max-width: 40vw;
+
+}
+
+.login-form {
+  
+  padding: 1em;
+  text-align: center;
+  color: #222;
+  
+
+  .form-title {
+    margin: 0.4em auto;
+  }
+
+  .form, form {
+    text-align: left;
+
+    .controls {
+      text-align: center;
+
+      .btn {
+        text-transform: uppercase;
+        min-width: 20%;
+      }
+    }
+  }
+
+  input {
+    color: #000;
+  }
+
+}
+
+.subform-link {
+  text-align: center;
+  margin-top: 1em;
+}
+

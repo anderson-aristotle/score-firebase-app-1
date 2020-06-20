@@ -1,0 +1,32 @@
+
+.page-wrapper {
+
+  // navigation goes here
+
+  .page-title {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  
+  .page-content {
+    border: thin solid #eee;
+    text-align: center;
+    padding: 0.3em;
+
+    min-height: 70vh;
+  }
+}
+
+
+.todo {
+  color: #066;
+  font-family: 'Courier New', Courier, monospace;
+
+  &::before {
+    content: 'TODO: ';
+  }
+}
+
+.accordion .card-header {
+  cursor: pointer;
+}
