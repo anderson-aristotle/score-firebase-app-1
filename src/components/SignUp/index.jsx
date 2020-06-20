@@ -28,14 +28,14 @@ class SignUpFormBase extends Component {
     this.state = { ...INITAL_STATE };
   }
 
-  onSubmit = (event) => {
+  handleSubmit = event => {
     const { email, passwordOne } = this.state;
+    const { firebase, history } = this.props;
 
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
+    firebase.doCreateUserWithEmailAndPassword(email, passwordOne)
       .then((authUser) => {
         this.setState({ ...INITAL_STATE });
-        this.props.history.push(ROUTES.HOME);
+        history.push(ROUTES.HOME);
       })
       .catch((error) => {
         this.setState({ error });
@@ -43,7 +43,7 @@ class SignUpFormBase extends Component {
 
     event.preventDefault();
   };
-  onChange = (e) => {
+  handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -55,35 +55,35 @@ class SignUpFormBase extends Component {
       passwordOne !== passwordTwo || passwordOne === '' || email === '';
 
     return (
-      <Form onSubmit={this.onSubmit}>
+      <Container className="form">
         <InputGroup className="mb-3">
           <InputGroup.Prepend>
             <InputGroup.Text>Email</InputGroup.Text>
           </InputGroup.Prepend>
-          <Form.Control type="email" placeholder="Enter email" 
-            value={email} onChange={this.onChange} />
+          <Form.Control name="email" type="email" placeholder="Enter email" 
+            value={email} onChange={this.handleChange} />
         </InputGroup>
         <InputGroup className="mb-3">
           <InputGroup.Prepend>
             <InputGroup.Text>Password</InputGroup.Text>
           </InputGroup.Prepend>
-          <Form.Control type="password" value={passwordOne} onChange={this.onChange} />
+          <Form.Control name="passwordOne" type="password" value={passwordOne} onChange={this.handleChange} />
         </InputGroup>
         <InputGroup className="mb-3">
           <InputGroup.Prepend>
             <InputGroup.Text>Confirm</InputGroup.Text>
           </InputGroup.Prepend>
-          <Form.Control type="password" value={passwordTwo} onChange={this.onChange} />
+          <Form.Control name="passwordTwo" type="password" value={passwordTwo} onChange={this.handleChange} />
         </InputGroup>
 
         <div className="controls">
-          <Button variant="light" disabled={isInvalid} type="submit">
+          <Button variant="light" disabled={isInvalid} onClick={this.handleSubmit}>
             Sign Up
           </Button>
         </div>
         
         {error && <Alert variant="danger">{error.message}</Alert>}
-      </Form>
+      </Container>
     );
 
   }

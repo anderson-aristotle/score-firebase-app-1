@@ -3,7 +3,6 @@ import { withRouter, Link } from "react-router-dom";
 import { compose } from "recompose";
 
 import { SignUpLink } from "../SignUp";
-import { } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from "../../constants/routes";
 
@@ -29,17 +28,17 @@ class SignInFormBase extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  onSubmit = event => {
+  handleSubmit = event => {
     const { email, password } = this.state;
+    const { firebase, history } = this.props;
 
     console.log('attempting login')
 
-    this.props.firebase
-      .doSignInWithEmailAndPassword(email, password)
+    firebase.doSignInWithEmailAndPassword(email, password)
       .then(() => {
         console.log('Login successful')
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
+        history.push(ROUTES.HOME);
         
       })
       .catch((error) => {
@@ -49,7 +48,7 @@ class SignInFormBase extends Component {
     event.preventDefault();
   };
 
-  onChange = event => {
+  handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -59,23 +58,23 @@ class SignInFormBase extends Component {
     const isInvalid = password === '' || email === '';
 
     return (
-      <Form onSubmit={this.onSubmit}>
+      <Container className="form">
         <InputGroup className="mb-3">
           <InputGroup.Prepend>
             <InputGroup.Text>Email</InputGroup.Text>
           </InputGroup.Prepend>
           <Form.Control name="email" type="email" placeholder="Enter email" 
-            value={email} onChange={this.onChange} />
+            value={email} onChange={this.handleChange} />
         </InputGroup>
         <InputGroup className="mb-3">
           <InputGroup.Prepend>
             <InputGroup.Text>Password</InputGroup.Text>
           </InputGroup.Prepend>
-          <Form.Control name="password" type="password" value={password} onChange={this.onChange} />
+          <Form.Control name="password" type="password" value={password} onChange={this.handleChange} />
         </InputGroup>
 
         <div className="controls">
-          <Button variant="light" disabled={isInvalid} type="submit">
+          <Button variant="light" disabled={isInvalid} onClick={this.handleSubmit} >
             Log In
           </Button>
           <span style={{paddingLeft: '2em'}}>
@@ -85,7 +84,7 @@ class SignInFormBase extends Component {
         </div>
         
         {error && <Alert variant="danger">{error.message}</Alert>}
-      </Form>
+      </Container>
     );
 
   }

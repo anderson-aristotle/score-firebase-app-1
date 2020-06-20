@@ -25,7 +25,7 @@ class PasswordForgetFormBase extends Component {
     this.state = {...INITIAL_STATE};
   }
 
-  onSubmit = event => {
+  handleSubmit = event => {
     const { email } = this.state;
     this.props.firebase
       .doPasswordReset(email)
@@ -40,7 +40,7 @@ class PasswordForgetFormBase extends Component {
     event.preventDefault();
   }
 
-  onChange = event => {
+  handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -50,13 +50,13 @@ class PasswordForgetFormBase extends Component {
     const isInvalid = email === '';
 
     return (
-      <Form onSubmit={this.onSubmit}>
+      <Form onSubmit={this.handleSubmit}>
         <InputGroup className="mb-3">
           <InputGroup.Prepend>
             <InputGroup.Text>Email</InputGroup.Text>
           </InputGroup.Prepend>
           <Form.Control name="email" type="email" placeholder="Enter email" 
-            value={email} onChange={this.onChange} />
+            value={email} onChange={this.handleChange} />
         </InputGroup>
         <div className="controls">
           <Button variant="light" disabled={isInvalid} type="submit">

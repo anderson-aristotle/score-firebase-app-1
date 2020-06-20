@@ -25,7 +25,7 @@ class PasswordChangeFormBase extends Component {
     this.state = {...INITAL_STATE};
   }
 
-  onSubmit = event => {
+  handleSubmit = event => {
     const { passwordOne } = this.state;
 
     this.props.firebase
@@ -41,7 +41,7 @@ class PasswordChangeFormBase extends Component {
     event.preventDefault();
   } 
 
-  onChange = event => {
+  handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -51,18 +51,18 @@ class PasswordChangeFormBase extends Component {
     const isInvalid = passwordOne !== passwordTwo || passwordOne === '';
 
     return (
-      <Form onSubmit={this.onSubmit}>
+      <Form onSubmit={this.handleSubmit}>
         <InputGroup className="mb-3">
           <InputGroup.Prepend>
             <InputGroup.Text>Password</InputGroup.Text>
           </InputGroup.Prepend>
-          <Form.Control name="passwordOne" type="password" value={passwordOne} onChange={this.onChange} />
+          <Form.Control name="passwordOne" type="password" value={passwordOne} onChange={this.handleChange} />
         </InputGroup>
         <InputGroup className="mb-3">
           <InputGroup.Prepend>
             <InputGroup.Text>Confirm</InputGroup.Text>
           </InputGroup.Prepend>
-          <Form.Control name="passwordTwo" type="password" value={passwordTwo} onChange={this.onChange} />
+          <Form.Control name="passwordTwo" type="password" value={passwordTwo} onChange={this.handleChange} />
         </InputGroup>
         <div className="controls">
           <Button variant="light" disabled={isInvalid} type="submit">
