@@ -29,7 +29,7 @@ export const OPEN_ROUTES = [
   },
   {
     route: SIGN_UP,
-    text: 'Landing'
+    text: 'Sign Up'
   },
   {
     route: LANDING,
