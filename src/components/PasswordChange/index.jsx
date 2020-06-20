@@ -5,15 +5,17 @@ import { compose } from "recompose";
 import { withFirebase } from '../Firebase';
 import * as ROUTES from "../../constants/routes";
 
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 
+import '../Common/form.scss';
 
 const INITAL_STATE = {
-  passwordOne: "",
-  passwordTwo: "",
+  passwordOne: '',
+  passwordTwo: '',
   error: null,
 };
 
@@ -50,17 +52,24 @@ class PasswordChangeFormBase extends Component {
 
     return (
       <Form onSubmit={this.onSubmit}>
-        <Form.Group controlId="passwordOne">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" value={passwordOne} onChange={this.onChange} />
-        </Form.Group>
-        <Form.Group controlId="passwordTwo">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control type="password" value={passwordTwo} onChange={this.onChange} />
-        </Form.Group>
-        <Button variant="light" disabled={isInvalid} type="submit">
-          Update Password
-        </Button>
+        <InputGroup className="mb-3">
+          <InputGroup.Prepend>
+            <InputGroup.Text>Password</InputGroup.Text>
+          </InputGroup.Prepend>
+          <Form.Control name="passwordOne" type="password" value={passwordOne} onChange={this.onChange} />
+        </InputGroup>
+        <InputGroup className="mb-3">
+          <InputGroup.Prepend>
+            <InputGroup.Text>Confirm</InputGroup.Text>
+          </InputGroup.Prepend>
+          <Form.Control name="passwordTwo" type="password" value={passwordTwo} onChange={this.onChange} />
+        </InputGroup>
+        <div className="controls">
+          <Button variant="light" disabled={isInvalid} type="submit">
+            Update Password
+          </Button>
+        </div>
+        
         {error && <Alert variant="danger">{error.message}</Alert>}
       </Form>
     )
@@ -70,9 +79,11 @@ class PasswordChangeFormBase extends Component {
 const PasswordChangeForm = compose(withRouter, withFirebase)(PasswordChangeFormBase);
 
 const PasswordChangePage = () => (
-  <Container className="login-form">
-    <h1>Change Password</h1>
-    <PasswordChangeForm />
+  <Container className="page-content">
+    <div className="login-form dialog-page">
+      <h2 className="form-title">Change Password</h2>
+      <PasswordChangeForm />
+    </div>
   </Container>
 );
 

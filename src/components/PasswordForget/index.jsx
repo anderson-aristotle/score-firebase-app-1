@@ -6,10 +6,13 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from "../../constants/routes";
 
 import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
+import Container from 'react-bootstrap/Container';
 
+
+import '../Common/form.scss';
 
 const INITIAL_STATE = {
   email: '',
@@ -48,17 +51,23 @@ class PasswordForgetFormBase extends Component {
 
     return (
       <Form onSubmit={this.onSubmit}>
-        <Form.Group controlId="emailAddress">
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" 
+        <InputGroup className="mb-3">
+          <InputGroup.Prepend>
+            <InputGroup.Text>Email</InputGroup.Text>
+          </InputGroup.Prepend>
+          <Form.Control name="email" type="email" placeholder="Enter email" 
             value={email} onChange={this.onChange} />
-        </Form.Group>
-        <Button variant="light" disabled={isInvalid} type="submit">
-          Reset My Password
-        </Button>
+        </InputGroup>
+        <div className="controls">
+          <Button variant="light" disabled={isInvalid} type="submit">
+            Reset My Password
+          </Button>
+        </div>
+        
         {error && <Alert variant="danger">{error.message}</Alert>}
       </Form>
     )
+
   }
 
   
@@ -67,9 +76,11 @@ class PasswordForgetFormBase extends Component {
 const PasswordForgetForm = compose(withRouter, withFirebase)(PasswordForgetFormBase);
 
 const PasswordForgetPage = () => (
-  <Container className="login-form">
-    <h1>Reset Password</h1>
-    <PasswordForgetForm />
+  <Container className="page-content">
+    <div className="login-form dialog-page">
+      <h3 className="form-title">Reset Password</h3>
+      <PasswordForgetForm />
+    </div>
   </Container>
 );
 

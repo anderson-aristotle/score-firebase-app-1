@@ -1,20 +1,23 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { compose } from "recompose";
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from "../../constants/routes";
 
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 
+import { SignInLink } from '../SignIn';
+
+import '../Common/form.scss';
 
 const INITAL_STATE = {
-  email: "",
-  passwordOne: "",
-  passwordTwo: "",
+  email: '',
+  passwordOne: '',
+  passwordTwo: '',
   error: null,
 };
 
@@ -44,54 +47,67 @@ class SignUpFormBase extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+
   render() {
     const { email, passwordOne, passwordTwo, error } = this.state;
 
     const isInvalid =
-      passwordOne !== passwordTwo || passwordOne === "" || email === "";
+      passwordOne !== passwordTwo || passwordOne === '' || email === '';
 
     return (
       <Form onSubmit={this.onSubmit}>
-        <Form.Group controlId="emailAddress">
-          <Form.Label>Email Address</Form.Label>
+        <InputGroup className="mb-3">
+          <InputGroup.Prepend>
+            <InputGroup.Text>Email</InputGroup.Text>
+          </InputGroup.Prepend>
           <Form.Control type="email" placeholder="Enter email" 
             value={email} onChange={this.onChange} />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
-        <Form.Group controlId="passwordOne">
-          <Form.Label>Password</Form.Label>
+        </InputGroup>
+        <InputGroup className="mb-3">
+          <InputGroup.Prepend>
+            <InputGroup.Text>Password</InputGroup.Text>
+          </InputGroup.Prepend>
           <Form.Control type="password" value={passwordOne} onChange={this.onChange} />
-        </Form.Group>
-        <Form.Group controlId="passwordTwo">
-          <Form.Label>Confirm Password</Form.Label>
+        </InputGroup>
+        <InputGroup className="mb-3">
+          <InputGroup.Prepend>
+            <InputGroup.Text>Confirm</InputGroup.Text>
+          </InputGroup.Prepend>
           <Form.Control type="password" value={passwordTwo} onChange={this.onChange} />
-        </Form.Group>
+        </InputGroup>
+
+        <div className="controls">
+          <Button variant="light" disabled={isInvalid} type="submit">
+            Sign Up
+          </Button>
+        </div>
         
-        <Button variant="light" disabled={isInvalid} type="submit">
-          Sign Up
-        </Button>
         {error && <Alert variant="danger">{error.message}</Alert>}
       </Form>
     );
+
   }
 }
 
 const SignUpLink = () => (
-  <p>
+  <Container className="subform-link">
     Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-  </p>
-);
-
-const SignUpForm = compose(withRouter, withFirebase)(SignUpFormBase);
-
-const SignUpPage = () => (
-  <Container className="login-form">
-    <h1>Sign Up</h1>
-    <SignUpForm />
   </Container>
 );
 
-export default SignUpPage;
+
+
+const SignUpForm = withFirebase(SignUpFormBase);
+
+const SignUpPage = () => (
+  <Container className="page-content">
+    <div className="login-form dialog-page">
+      <h2 className="form-title">Sign Up</h2>
+      <SignUpForm />
+    </div>
+    <SignInLink />
+  </Container>
+);
+
+export default withRouter(SignUpPage);
 export { SignUpForm, SignUpLink };
