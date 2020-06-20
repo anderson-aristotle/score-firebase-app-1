@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { withFirebase } from '../Firebase';
@@ -13,36 +13,38 @@ import AdminPage from '../Admin';
 
 import * as ROUTES from '../../constants/routes';
 
-// TODO: determine if logged in
+import 'bootstrap/dist/css/bootstrap.min.css';
 
- class App extends React.Component {
+import '../Common/page.scss';
+
+class App extends Component {
   constructor (props) {
     super(props);
     this.state = {
       authUser: null
     }
   }
+  
+  componentDidMount() {
+    this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
+      authUser 
+        ? this.setState({ authUser }) 
+        : this.setState({ authUser: null });
+        },
+      );
+  }
 
-  // componentDidMount() {
-  //   this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-  //     authUser 
-  //       ? this.setState({ authUser }) 
-  //       : this.setState({ authUser: null });
-  //       },
-  //     );
-  // }
-
-  // componentWillUnmount() {
-  //   this.listener();
-  // }
+  componentWillUnmount() {
+    this.listener();
+  }
 
   render () {
     return (
       <Router>
-        <div>
-
+        <div className="page-wrapper">
+  
           <Navigation authUser={this.state.authUser} />
-
+  
           <Route exact path={ROUTES.LANDING} component={LandingPage} />
           <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
           <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
