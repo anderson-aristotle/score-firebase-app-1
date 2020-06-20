@@ -10,12 +10,17 @@ import { PasswordForgetForm } from '../PasswordForget';
 import '../Common/page.scss';
 import '../Common/form.scss';
 
+const accStyle = {
+  width: '50%',
+  float: 'right'
+}
+
 const AccountPage = () => (
   <div className="auth-page">
     <h1 className="page-title">Account Page</h1>
-    <Container fluid="sm" className="page-content">
-      <Accordion defaultActiveKey="0">
-        <Card>
+    <Container fluid="sm" className="page-content justify-content-center">
+      <Accordion defaultActiveKey="0" className="account-options" style={accStyle}>
+        <Card bg="dark" className="mb-2" text="white">
           <Accordion.Toggle as={Card.Header} eventKey="0">
             Account Info
           </Accordion.Toggle>
@@ -25,7 +30,7 @@ const AccountPage = () => (
             </Card.Body>
           </Accordion.Collapse>
         </Card>
-        <Card>
+        <Card bg="primary" className="mb-2" text="white">
           <Accordion.Toggle as={Card.Header} eventKey="1">
             Change Password
           </Accordion.Toggle>
@@ -38,7 +43,7 @@ const AccountPage = () => (
             </Card.Body>
           </Accordion.Collapse>
         </Card>
-        <Card>
+        <Card bg="secondary" className="mb-2" text="dark">
           <Accordion.Toggle as={Card.Header} eventKey="2">
             Reset Password
           </Accordion.Toggle>
