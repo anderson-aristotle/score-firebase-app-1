@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 
-import SignOutButton from '../SignOut';
+import { SignOutLink } from '../SignOut';
 import { AUTH_ROUTES, OPEN_ROUTES } from '../../constants/routes';
 
 import './nav.scss';
@@ -16,13 +16,13 @@ const Navigation = ({ authUser }) => {
     <Container fluid className="menu-wrapper">
      <Nav className="menu justify-content-around">
         {links.map((link, index) => (
-          <Nav.Item key={index} style={{padding: '0 1em'}}>
-            <Link to={link.route}>{link.text}</Link>
+          <Nav.Item key={index}>
+            <Link className="nav-link" to={link.route}>{link.text}</Link>
           </Nav.Item>
         ))}
         {authUser && (
           <Nav.Item>
-            <SignOutButton />
+            <SignOutLink />
           </Nav.Item>
         )}
       </Nav>
