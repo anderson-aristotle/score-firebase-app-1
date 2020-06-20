@@ -1,6 +1,13 @@
 import React from "react";
+import Container from "react-bootstrap/Container";
 
-function LandingPage() {
-  return <h1>Landing</h1>;
-}
+
+const LandingPage = () => (
+  <Container fluid className="page-content">
+    <header>
+      <h3 className="page-title">Landing Page</h3>
+    </header>
+  </Container>
+);
+
 export default LandingPage;
