@@ -18,6 +18,14 @@
 }
 
 
+.accordion .card-header {
+  cursor: pointer;
+}
+
+
+// DEV
+
+
 .todo {
   color: #066;
   font-family: 'Courier New', Courier, monospace;
@@ -27,6 +35,9 @@
   }
 }
 
-.accordion .card-header {
-  cursor: pointer;
+.dev-msg {
+  border: thin solid #630;
+  padding: 1em 2em;
+  color: #600;
+  font-family: 'Courier New', Courier, monospace;
 }
