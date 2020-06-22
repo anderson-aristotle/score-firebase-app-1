@@ -1,6 +1,6 @@
 import app from "firebase/app";
 import "firebase/auth";
-import "firebase/firestore";
+import "firebase/database";
 
 import { firebaseConfig } from '../../config/fb';
 
@@ -24,9 +24,11 @@ class Firebase {
     app.initializeApp(firebaseConfig);
     
     this.auth = app.auth();
+    this.db = app.database();
   }
 
-  // Auth API
+  // *** Auth API ***
+
   doCreateUserWithEmailAndPassword = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
 
@@ -39,7 +41,11 @@ class Firebase {
 
   doPasswordUpdate = (password) => this.auth.currentUser.updatePassword(password);
 
-  
+  // *** User API ***
+
+  user = uid => this.db.ref(`users/${uid}`);
+
+  users = () => this.db.ref('users');
 
 }
 
