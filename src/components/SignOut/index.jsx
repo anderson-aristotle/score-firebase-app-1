@@ -10,10 +10,9 @@ export const SignOutLink = withFirebase(({ firebase }) => (
   <Nav.Link href={LANDING} onClick={firebase.doSignOut}>Sign Out</Nav.Link>
 ));
 
-const SignOutButton = ({ firebase, history, variant = 'light'}) => (
+const SignOutButton = ({ firebase, variant = 'light'}) => (
   <Button variant={variant} onClick={() => {
     firebase.doSignOut();
-    history.push(LANDING);
   }}>Sign Out</Button>
 );
 
