@@ -35,7 +35,20 @@ const AccountPage = () => (
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0">
               <Card.Body>
-                <span className="todo">account info</span>
+                {authUser && (
+                <div className="info">
+                  {/* <div className="field">
+                    <span className="label">Name:</span>
+                    <span className="info">
+                      {authUser.user.username}
+                    </span>
+                  </div> */}
+                  <span className="label">Email: </span>
+                  <span className="info">
+                    {authUser.email}
+                  </span>
+                </div>
+                )}
               </Card.Body>
             </Accordion.Collapse>
           </Card>
