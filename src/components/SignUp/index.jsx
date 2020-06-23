@@ -16,6 +16,7 @@ import '../Common/form.scss';
 
 const INITAL_STATE = {
   email: '',
+  username: '',
   passwordOne: '',
   passwordTwo: '',
   error: null,
@@ -29,13 +30,21 @@ class SignUpFormBase extends Component {
   }
 
   handleSubmit = event => {
-    const { email, passwordOne } = this.state;
-    const { firebase, history } = this.props;
+    const { username, email, passwordOne } = this.state;
 
-    firebase.doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then((authUser) => {
+    this.props.firebase.doCreateUserWithEmailAndPassword(email, passwordOne)
+      .then(authUser => {
+        // create a user in Firebase
+        return this.props.firebase
+          .user(authUser.user.uid)
+          .set({
+            username,
+            email,
+          });
+      })
+      .then(() => {
         this.setState({ ...INITAL_STATE });
-        history.push(ROUTES.HOME);
+        this.props.history.push(ROUTES.HOME);
       })
       .catch((error) => {
         this.setState({ error });
@@ -49,13 +58,20 @@ class SignUpFormBase extends Component {
 
 
   render() {
-    const { email, passwordOne, passwordTwo, error } = this.state;
+    const { email, username, passwordOne, passwordTwo, error } = this.state;
 
     const isInvalid =
       passwordOne !== passwordTwo || passwordOne === '' || email === '';
 
     return (
-      <Container className="form">
+      <Form onSubmit={this.handleSubmit}>
+        <InputGroup className="mb-3">
+          <InputGroup.Prepend>
+            <InputGroup.Text>Name</InputGroup.Text>
+            <Form.Control name="username" type="text" placeholder="Enter name"
+              value={username} onChange={this.handleChange} />
+          </InputGroup.Prepend>
+        </InputGroup>
         <InputGroup className="mb-3">
           <InputGroup.Prepend>
             <InputGroup.Text>Email</InputGroup.Text>
@@ -77,13 +93,13 @@ class SignUpFormBase extends Component {
         </InputGroup>
 
         <div className="controls">
-          <Button variant="light" disabled={isInvalid} onClick={this.handleSubmit}>
+          <Button variant="light" disabled={isInvalid} type="submit">
             Sign Up
           </Button>
         </div>
         
         {error && <Alert variant="danger">{error.message}</Alert>}
-      </Container>
+      </Form>
     );
 
   }
